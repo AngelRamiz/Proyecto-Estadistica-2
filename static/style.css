@@ -13,7 +13,7 @@
   border-bottom: 4px solid #d32f2f;
 }
 
-/* ----- ESTILO GLOBAL ----- */
+
 body {
   background-image: url('/static/fondo.jpg');
   background-size: cover;
@@ -26,7 +26,7 @@ body {
   padding: 0;
 }
 
-/* ----- CONTENEDOR CENTRAL ----- */
+
 .overlay-box {
   background-color: rgba(255, 255, 255, 0.97);
   padding: 45px;
@@ -37,7 +37,7 @@ body {
   backdrop-filter: blur(2px);
 }
 
-/* ----- TÍTULOS ----- */
+
 h1, h2 {
   text-align: center;
   font-weight: 800;
@@ -55,7 +55,7 @@ h1, h2 {
   margin-bottom: 25px;
 }
 
-/* ----- FORMULARIOS Y SELECTORES ----- */
+
 .form-select,
 .form-control,
 input[type="number"],
@@ -73,7 +73,7 @@ input:focus {
   box-shadow: 0 0 6px rgba(255, 152, 0, 0.3);
 }
 
-/* ----- TABLAS ----- */
+
 .table {
   margin-top: 20px;
   border-radius: 12px;
@@ -93,7 +93,7 @@ input:focus {
   border: 1px solid #dee2e6;
 }
 
-/* ----- CUADROS DE RESULTADO ----- */
+
 .result-box {
   background-color: #fff;
   border-radius: 16px;
@@ -102,7 +102,7 @@ input:focus {
   margin-top: 50px;
 }
 
-/* ----- BOTONES ----- */
+
 .btn-primary {
   background-color: #222;
   color: #fff;
@@ -139,14 +139,14 @@ input:focus {
   border-radius: 6px;
 }
 
-/* ----- MENSAJES FLASH ----- */
+
 .alert {
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 500;
 }
 
-/* ----- OTROS ----- */
+
 a {
   text-decoration: none;
   transition: color 0.2s ease;

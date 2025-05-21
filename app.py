@@ -32,7 +32,7 @@ def resultado():
 
     return f"Elegiste el análisis: {analisis}"
 
-#  Comparación de medias validada
+#  Comparacion de medias 
 @app.route('/calcular_ttest', methods=['POST'])
 def calcular_ttest():
     grupo1 = request.form['grupo1']
@@ -69,7 +69,7 @@ def calcular_ttest():
 
     return render_template("resultado_ttest.html", resultado=resultado)
 
-# Regresion Lineal con datos del Excel o manuales
+# Regresion Lineal 
 @app.route('/regresion_custom', methods=['POST'])
 def regresion_custom():
     modo = request.form['modo']
