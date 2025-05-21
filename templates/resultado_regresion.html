@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Regresión Lineal - Selección de Datos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="container overlay-box">
+
+  <header class="mb-4">
+    <h2 class="text-primary"> Regresión Lineal </h2>
+    <p class="text-muted">Selecciona los datos desde el Excel o ingrésalos manualmente para analizar la relación entre experiencia y tiempo de entrega.</p>
+  </header>
+
+  {% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+      <div class="alert alert-warning text-center container" role="alert">
+        {% for msg in mensajes %}
+          <p class="mb-0">{{ msg }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="post" action="/regresion_custom">
+    <div class="mb-4">
+      <label class="form-label fw-semibold">¿Qué tipo de datos deseas usar?</label>
+      <select class="form-select" id="modo" name="modo" onchange="mostrarFormulario(); autoSubmit()">
+        <option value="">-- Selecciona una opción --</option>
+        <option value="excel">Usar datos del Excel</option>
+        <option value="manual">Ingresar mis propios datos</option>
+      </select>
+    </div>
+
+    <div id="formulario_manual" class="hidden">
+      <h5 class="mb-3"> Ingresar datos personalizados</h5>
+      <p class="text-muted">Introduce valores de experiencia (X) y tiempo de entrega (Y):</p>
+      <table class="table table-bordered form-table" id="tabla_datos">
+        <thead class="table-light">
+          <tr>
+            <th>Experiencia (X)</th>
+            <th>Tiempo de Entrega (Y)</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input name="x[]" type="number" step="any" required></td>
+            <td><input name="y[]" type="number" step="any" required></td>
+            <td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarFila(this)">🗑️</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-secondary" onclick="agregarFila()">+ Añadir fila</button>
+    </div>
+
+    <div class="mt-4 d-grid">
+      <button type="submit" class="btn btn-primary">Ejecutar Analisis</button>
+    </div>
+  </form>
+
+  {% if resultado %}
+  <div class="result-box mt-5">
+    <div class="section-title"> Resumen del Modelo de Regresion</div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Intercepto (β₀)</th>
+            <th>Pendiente (β₁)</th>
+            <th>R²</th>
+            <th>Valor p</th>
+            <th>Conclusión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ resultado.intercepto }}</td>
+            <td>{{ resultado.pendiente }}</td>
+            <td>{{ resultado.r2 }}</td>
+            <td>{{ resultado.p_value }}</td>
+            <td><strong>{{ resultado.conclusion }}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-muted mt-3">
+      <strong>Interpretación:</strong> La pendiente (β₁) representa el cambio estimado en el tiempo de entrega por cada año adicional de experiencia del personal.
+      Un valor p menor a 0.05 indica que esta relación es estadísticamente significativa.
+    </p>
+  </div>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a class="btn btn-outline-secondary" href="/">Inicio</a>
+  </div>
+  
+  <div class="text-center mt-4 mb-3">
+  <a href="/static/excels/Regresion_Lineal.xlsx" class="btn btn-outline-success">
+    📥 Descargar Procedimiento de Regresión (Excel)
+  </a>
+  <p class="text-muted small mt-1">Incluye los cálculos del modelo lineal con base en los datos usados.</p>
+</div>
+
+  <script>
+    function mostrarFormulario() {
+      const modo = document.getElementById('modo').value;
+      const formManual = document.getElementById('formulario_manual');
+      formManual.classList.toggle('hidden', modo !== 'manual');
+    }
+
+    function agregarFila() {
+      const tabla = document.getElementById("tabla_datos").getElementsByTagName('tbody')[0];
+      const fila = tabla.insertRow();
+      fila.innerHTML = `
+        <td><input name="x[]" type="number" step="any" required></td>
+        <td><input name="y[]" type="number" step="any" required></td>
+        <td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarFila(this)">🗑️</button></td>
+      `;
+    }
+
+    function eliminarFila(boton) {
+      const fila = boton.closest("tr");
+      fila.remove();
+    }
+
+    function autoSubmit() {
+      const modo = document.getElementById("modo").value;
+      if (modo === "excel") {
+        document.forms[0].submit();
+      }
+    }
+
+    window.onload = function () {
+      const mensajes = {{ get_flashed_messages()|length }};
+      if (mensajes > 0) {
+        mostrarFormulario();
+      }
+    };
+  </script>
+</body>
+</html>

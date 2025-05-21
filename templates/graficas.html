@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Graficas - Proyecto</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="umg-header mb-4">
+  <img src="/static/fondo1.jpg" alt="Universidad Mariano Gálvez" class="img-fluid umg-banner">
+</header>
+
+
+<div class="container overlay-box">
+  <h2> Graficas de Analisis Estadistico</h2>
+
+  <div class="mb-4 text-center">
+    <label for="tipoGrafico" class="form-label">Selecciona el analisis:</label>
+    <select id="tipoGrafico" class="form-select w-auto d-inline-block" onchange="cambiarGrafico()">
+      <option value="medias">Comparacion de Medias - ANOVA</option>
+      <option value="regresion">Regresion Lineal</option>
+    </select>
+  </div>
+
+
+  <div id="grafico_medias" class="grafica"></div>
+
+  
+  <div id="grafico_regresion" class="grafica d-none"></div>
+
+  <div class="text-center">
+    <a class="btn btn-outline-primary" href="/">Inicio</a>
+  </div>
+</div>
+
+<script>
+  const etiquetas = {{ etiquetas|tojson }};
+  const medias = {{ medias|tojson }};
+  const x = {{ x|tojson }};
+  const y = {{ y|tojson }};
+
+  // Gráfico de barras
+  Plotly.newPlot('grafico_medias', [{
+    x: etiquetas,
+    y: medias,
+    type: 'bar',
+    marker: { color: 'rgb(0,123,255)' }
+  }], {
+    title: 'Promedio de Tiempo de Entrega por Tipo de Transporte',
+    xaxis: { title: 'Tipo de Transporte' },
+    yaxis: { title: 'Tiempo (días)' }
+  });
+
+  // Gráfico de regresión lineal
+  const regresion = linearRegression(x, y);
+  const line_x = [Math.min(...x), Math.max(...x)];
+  const line_y = line_x.map(val => regresion.intercepto + regresion.pendiente * val);
+
+  Plotly.newPlot('grafico_regresion', [
+    {
+      x: x,
+      y: y,
+      mode: 'markers',
+      type: 'scatter',
+      name: 'Datos',
+      marker: { color: 'rgba(0,0,255,0.6)' }
+    },
+    {
+      x: line_x,
+      y: line_y,
+      mode: 'lines',
+      name: 'Regresión Lineal',
+      line: { color: 'red' }
+    }
+  ], {
+    title: 'Relación entre Experiencia y Tiempo de Entrega',
+    xaxis: { title: 'Experiencia (años)' },
+    yaxis: { title: 'Tiempo de Entrega (días)' }
+  });
+
+  function cambiarGrafico() {
+    const tipo = document.getElementById("tipoGrafico").value;
+    document.getElementById("grafico_medias").classList.toggle("d-none", tipo !== "medias");
+    document.getElementById("grafico_regresion").classList.toggle("d-none", tipo !== "regresion");
+  }
+
+  function linearRegression(x, y) {
+    const n = x.length;
+    const sum_x = x.reduce((a, b) => a + b, 0);
+    const sum_y = y.reduce((a, b) => a + b, 0);
+    const sum_xy = x.map((xi, i) => xi * y[i]).reduce((a, b) => a + b, 0);
+    const sum_x2 = x.map(xi => xi * xi).reduce((a, b) => a + b, 0);
+
+    const pendiente = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x * sum_x);
+    const intercepto = (sum_y - pendiente * sum_x) / n;
+
+    return { pendiente, intercepto };
+  }
+</script>
+</body>
+</html>

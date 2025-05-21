@@ -1,0 +1,196 @@
+.umg-header {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.umg-banner {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  object-position: center;
+  border-bottom: 4px solid #d32f2f;
+}
+
+/* ----- ESTILO GLOBAL ----- */
+body {
+  background-image: url('/static/fondo.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1a1a1a;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* ----- CONTENEDOR CENTRAL ----- */
+.overlay-box {
+  background-color: rgba(255, 255, 255, 0.97);
+  padding: 45px;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  margin: 60px auto;
+  max-width: 1000px;
+  backdrop-filter: blur(2px);
+}
+
+/* ----- TÍTULOS ----- */
+h1, h2 {
+  text-align: center;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.section-title {
+  border-left: 6px solid #ff9800;
+  padding-left: 15px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+/* ----- FORMULARIOS Y SELECTORES ----- */
+.form-select,
+.form-control,
+input[type="number"],
+input[type="text"] {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-select:focus,
+.form-control:focus,
+input:focus {
+  border-color: #ff9800;
+  box-shadow: 0 0 6px rgba(255, 152, 0, 0.3);
+}
+
+/* ----- TABLAS ----- */
+.table {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: #f9f9f9;
+  color: #222;
+  font-weight: 700;
+}
+
+.table td, .table th {
+  text-align: center;
+  padding: 14px;
+  vertical-align: middle;
+  border: 1px solid #dee2e6;
+}
+
+/* ----- CUADROS DE RESULTADO ----- */
+.result-box {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 35px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  margin-top: 50px;
+}
+
+/* ----- BOTONES ----- */
+.btn-primary {
+  background-color: #222;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px 26px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #444;
+  transform: translateY(-1px);
+}
+
+.btn-outline-secondary {
+  color: #222;
+  border-color: #222;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #222;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-danger.btn-sm {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+/* ----- MENSAJES FLASH ----- */
+.alert {
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ----- OTROS ----- */
+a {
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.title-icon {
+  width: 40px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.form-section {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+  margin: 0 auto 30px auto;
+}
+
+.nav-links a {
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+  padding: 8px 10px;
+  display: inline-block;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+  background-color: rgba(255, 152, 0, 0.1);
+  border-radius: 6px;
+}
+
+.back-link {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.hidden {
+  display: none;
+}
